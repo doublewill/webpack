@@ -3,13 +3,32 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const HOST = process.env.HOST
+const PORT = process.env.PORT && Number(process.env.PORT)
+const webpack = require('webpack')
 
+// function resolve (dir) {
+// 	return path.join(__dirname, '..', dir)
+// }
 module.exports = {
 	mode: 'development',
-	entry: ["@babel/polyfill",path.resolve(__dirname, '../src/main.js')],
+	entry: ["@babel/polyfill",path.join(__dirname, '../src/main.js')],
 	output: {
 		filename: '[name].[hash:8].js',
-		path: path.resolve(__dirname, '../dist')
+		path: path.join(__dirname, '../dist')
+	},
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    // alias: {
+    //   '@': resolve('src'),
+    // }
+	},
+	devServer: {
+		hot: true,
+		open: true,
+		host: HOST,
+		port: PORT,
+		clientLogLevel: 'warning',
 	},
 	module: {
 		rules: [
@@ -22,7 +41,7 @@ module.exports = {
 						}
 				},
 				exclude:/node_modules/
-	 	},					
+	 	},
 			{
 				test: /\.css$/,
 				use: ['style-loader', 'css-loader']
@@ -92,6 +111,7 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, '../index.html')
 		}),
+		new webpack.HotModuleReplacementPlugin(),
 		new CleanWebpackPlugin()
 	]
 }
