@@ -27,7 +27,7 @@ module.exports = {
     hot: true,
     open: true,
     host: HOST,
-    port: 8000,
+    port: 8001,
     clientLogLevel: 'warning',
   },
   module: {

@@ -21,6 +21,9 @@
     "url": "https://github.com/doublewill/webpack/issues"
   },
   "homepage": "https://github.com/doublewill/webpack#readme",
+  "dependencies": {
+    "@babel/polyfill": "^7.7.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
@@ -37,8 +40,5 @@
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.3"
-  },
-  "dependencies": {
-    "@babel/polyfill": "^7.7.0"
   }
 }
