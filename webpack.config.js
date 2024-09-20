@@ -4,6 +4,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const { config } = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const isProduction = process.env.NODE_ENV == 'production';
 const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
@@ -12,7 +13,7 @@ const config = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].[hash:8].js',
+        filename: '[name].[contenthash:8].js',
     },
     devServer: {
         open: true,
@@ -71,7 +72,7 @@ const config = {
                             fallback: {
                                 loader: 'file-loader',
                                 options: {
-                                    name: 'media/[name].[hash:8].[ext]',
+                                    name: 'media/[name].[chunkhash:8].[ext]',
                                 },
                             },
                         },
@@ -103,7 +104,7 @@ const config = {
         new HtmlWebpackPlugin({
             template: 'index.html',
         }),
-        // new CleanWebpackPlugin(),
+        new CleanWebpackPlugin(),
         // Add your plugins here
         // Learn more about plugins from https://webpack.js.org/configuration/plugins/
     ],
@@ -114,7 +115,7 @@ module.exports = () => {
         config.mode = 'production';
 
         config.plugins.push(new MiniCssExtractPlugin({
-            filename: '[name].[hash:8].css',
+            filename: '[name].[chunkhash:8].css',
             chunkFilename: '[id].css',
         }));
 
