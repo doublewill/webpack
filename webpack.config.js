@@ -3,7 +3,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { VueLoaderPlugin } = require('vue-loader')
 // const { config } = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const isProduction = process.env.NODE_ENV == 'production';
 const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
@@ -11,8 +13,9 @@ const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader
 const config = {
     entry: './src/index.js',
     output: {
+        publicPath: '/',
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].[hash:8].js',
+        filename: '[name].[contenthash:8].js',
     },
     devServer: {
         open: true,
@@ -27,6 +30,10 @@ const config = {
     },
     module: {
         rules: [
+            {
+                test: /\.vue$/i,
+                loader: 'vue-loader',
+            },
             {
                 test: /\.(js|jsx)$/i,
                 loader: 'babel-loader',
@@ -103,7 +110,8 @@ const config = {
         new HtmlWebpackPlugin({
             template: 'index.html',
         }),
-        // new CleanWebpackPlugin(),
+        new VueLoaderPlugin(),
+        new CleanWebpackPlugin(),
         // Add your plugins here
         // Learn more about plugins from https://webpack.js.org/configuration/plugins/
     ],
@@ -114,7 +122,7 @@ module.exports = () => {
         config.mode = 'production';
 
         config.plugins.push(new MiniCssExtractPlugin({
-            filename: '[name].[hash:8].css',
+            filename: '[name].[chunkhash:8].css',
             chunkFilename: '[id].css',
         }));
 

@@ -26,6 +26,7 @@
     "@webpack-cli/generators": "^3.0.7",
     "autoprefixer": "^10.4.20",
     "babel-loader": "^9.2.1",
+    "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.2",
     "eslint": "^9.10.0",
     "html-webpack-plugin": "^5.6.0",
@@ -36,8 +37,16 @@
     "sass": "^1.79.1",
     "sass-loader": "^16.0.1",
     "style-loader": "^4.0.0",
+    "url-loader": "^4.1.1",
+    "vue-loader": "^17.4.2",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.13",
+    "lodash-es": "^4.17.21",
+    "vue": "^3.5.6",
+    "vue-router": "^4.4.5"
   }
 }
